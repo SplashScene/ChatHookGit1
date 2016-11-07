@@ -7,14 +7,109 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		245921E7B8E177675212A4C9 /* Pods_ChatHook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2208C208D421BD0B185B6F39 /* Pods_ChatHook.framework */; };
+		845B626C1DCF88C50015969D /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 845B62691DCF88C50015969D /* Bolts.framework */; };
+		845B626D1DCF88C50015969D /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 845B626A1DCF88C50015969D /* FBSDKCoreKit.framework */; };
+		845B626E1DCF88C50015969D /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 845B626B1DCF88C50015969D /* FBSDKLoginKit.framework */; };
+		845B629A1DCF89430015969D /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B62701DCF89430015969D /* ChatViewController.swift */; };
+		845B629B1DCF89430015969D /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B62711DCF89430015969D /* CommentViewController.swift */; };
+		845B629C1DCF89430015969D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B62721DCF89430015969D /* Constants.swift */; };
+		845B629D1DCF89430015969D /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B62731DCF89430015969D /* DataService.swift */; };
+		845B629E1DCF89430015969D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B62741DCF89430015969D /* Extensions.swift */; };
+		845B629F1DCF89430015969D /* GalleryCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B62751DCF89430015969D /* GalleryCollectionCell.swift */; };
+		845B62A01DCF89430015969D /* GalleryImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B62761DCF89430015969D /* GalleryImage.swift */; };
+		845B62A11DCF89430015969D /* ImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B62771DCF89430015969D /* ImageExtensions.swift */; };
+		845B62A21DCF89430015969D /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B62781DCF89430015969D /* IntroViewController.swift */; };
+		845B62A31DCF89430015969D /* MainTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B62791DCF89430015969D /* MainTabBar.swift */; };
+		845B62A41DCF89430015969D /* MessagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B627A1DCF89430015969D /* MessagesController.swift */; };
+		845B62A51DCF89430015969D /* NewMessagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B627B1DCF89430015969D /* NewMessagesController.swift */; };
+		845B62A61DCF89430015969D /* PostsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B627C1DCF89430015969D /* PostsVC.swift */; };
+		845B62A71DCF89430015969D /* ProfileVCLayouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B627D1DCF89430015969D /* ProfileVCLayouts.swift */; };
+		845B62A81DCF89430015969D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B627E1DCF89430015969D /* ProfileViewController.swift */; };
+		845B62A91DCF89430015969D /* RoomsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B627F1DCF89430015969D /* RoomsViewController.swift */; };
+		845B62AA1DCF89430015969D /* testPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B62801DCF89430015969D /* testPostCell.swift */; };
+		845B62AB1DCF89430015969D /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B62821DCF89430015969D /* Comment.swift */; };
+		845B62AC1DCF89430015969D /* CommentPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B62831DCF89430015969D /* CommentPostView.swift */; };
+		845B62AD1DCF89430015969D /* CommentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B62841DCF89430015969D /* CommentViewCell.swift */; };
+		845B62AE1DCF89430015969D /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B62851DCF89430015969D /* CurrentUser.swift */; };
+		845B62AF1DCF89430015969D /* GetLocation1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B62861DCF89430015969D /* GetLocation1.swift */; };
+		845B62B01DCF89430015969D /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B62871DCF89430015969D /* GradientView.swift */; };
+		845B62B11DCF89430015969D /* IntroVCLayouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B62881DCF89430015969D /* IntroVCLayouts.swift */; };
+		845B62B21DCF89430015969D /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B62891DCF89430015969D /* Message.swift */; };
+		845B62B31DCF89430015969D /* PlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B628A1DCF89430015969D /* PlayButton.swift */; };
+		845B62B41DCF89430015969D /* PostsVCLayouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B628B1DCF89430015969D /* PostsVCLayouts.swift */; };
+		845B62B51DCF89430015969D /* PublicRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B628C1DCF89430015969D /* PublicRoom.swift */; };
+		845B62B61DCF89430015969D /* PublicRoomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B628D1DCF89430015969D /* PublicRoomCell.swift */; };
+		845B62B71DCF89430015969D /* TestPostCellLayouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B628E1DCF89430015969D /* TestPostCellLayouts.swift */; };
+		845B62B81DCF89430015969D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B628F1DCF89430015969D /* User.swift */; };
+		845B62B91DCF89430015969D /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B62901DCF89430015969D /* UserCell.swift */; };
+		845B62BA1DCF89430015969D /* UserPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B62911DCF89430015969D /* UserPost.swift */; };
+		845B62BB1DCF89430015969D /* GroupedUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B62921DCF89430015969D /* GroupedUsers.swift */; };
+		845B62BC1DCF89430015969D /* introVideo.mov in Resources */ = {isa = PBXBuildFile; fileRef = 845B62931DCF89430015969D /* introVideo.mov */; };
+		845B62BD1DCF89430015969D /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B62941DCF89430015969D /* MaterialButton.swift */; };
+		845B62BE1DCF89430015969D /* MaterialImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B62951DCF89430015969D /* MaterialImageView.swift */; };
+		845B62BF1DCF89430015969D /* MaterialTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B62961DCF89430015969D /* MaterialTextField.swift */; };
+		845B62C01DCF89430015969D /* MaterialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B62971DCF89430015969D /* MaterialView.swift */; };
+		845B62C11DCF89430015969D /* TipInCellAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B62981DCF89430015969D /* TipInCellAnimator.swift */; };
+		845B62C21DCF89430015969D /* UserLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B62991DCF89430015969D /* UserLocation.swift */; };
 		84AE808F1DCF85C000C162D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AE808E1DCF85C000C162D0 /* AppDelegate.swift */; };
 		84AE80911DCF85C000C162D0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AE80901DCF85C000C162D0 /* ViewController.swift */; };
 		84AE80941DCF85C000C162D0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84AE80921DCF85C000C162D0 /* Main.storyboard */; };
 		84AE80961DCF85C000C162D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84AE80951DCF85C000C162D0 /* Assets.xcassets */; };
 		84AE80991DCF85C000C162D0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84AE80971DCF85C000C162D0 /* LaunchScreen.storyboard */; };
+		84AE80A11DCF85F400C162D0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84AE80A01DCF85F400C162D0 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0F76E295AECAB7281A2FF875 /* Pods-ChatHook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatHook.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChatHook/Pods-ChatHook.debug.xcconfig"; sourceTree = "<group>"; };
+		2208C208D421BD0B185B6F39 /* Pods_ChatHook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChatHook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		449C62E4FCCF99145DD015B0 /* Pods-ChatHook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatHook.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChatHook/Pods-ChatHook.release.xcconfig"; sourceTree = "<group>"; };
+		845B62691DCF88C50015969D /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		845B626A1DCF88C50015969D /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		845B626B1DCF88C50015969D /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		845B626F1DCF88F30015969D /* ChatHook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChatHook.entitlements; sourceTree = "<group>"; };
+		845B62701DCF89430015969D /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatViewController.swift; path = ../ChatViewController.swift; sourceTree = "<group>"; };
+		845B62711DCF89430015969D /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentViewController.swift; path = ../CommentViewController.swift; sourceTree = "<group>"; };
+		845B62721DCF89430015969D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = ../Constants.swift; sourceTree = "<group>"; };
+		845B62731DCF89430015969D /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataService.swift; path = ../DataService.swift; sourceTree = "<group>"; };
+		845B62741DCF89430015969D /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = ../Extensions.swift; sourceTree = "<group>"; };
+		845B62751DCF89430015969D /* GalleryCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryCollectionCell.swift; path = ../GalleryCollectionCell.swift; sourceTree = "<group>"; };
+		845B62761DCF89430015969D /* GalleryImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryImage.swift; path = ../GalleryImage.swift; sourceTree = "<group>"; };
+		845B62771DCF89430015969D /* ImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageExtensions.swift; path = ../ImageExtensions.swift; sourceTree = "<group>"; };
+		845B62781DCF89430015969D /* IntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IntroViewController.swift; path = ../IntroViewController.swift; sourceTree = "<group>"; };
+		845B62791DCF89430015969D /* MainTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainTabBar.swift; path = ../MainTabBar.swift; sourceTree = "<group>"; };
+		845B627A1DCF89430015969D /* MessagesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessagesController.swift; path = ../MessagesController.swift; sourceTree = "<group>"; };
+		845B627B1DCF89430015969D /* NewMessagesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewMessagesController.swift; path = ../NewMessagesController.swift; sourceTree = "<group>"; };
+		845B627C1DCF89430015969D /* PostsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostsVC.swift; path = ../PostsVC.swift; sourceTree = "<group>"; };
+		845B627D1DCF89430015969D /* ProfileVCLayouts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileVCLayouts.swift; path = ../ProfileVCLayouts.swift; sourceTree = "<group>"; };
+		845B627E1DCF89430015969D /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileViewController.swift; path = ../ProfileViewController.swift; sourceTree = "<group>"; };
+		845B627F1DCF89430015969D /* RoomsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RoomsViewController.swift; path = ../RoomsViewController.swift; sourceTree = "<group>"; };
+		845B62801DCF89430015969D /* testPostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = testPostCell.swift; path = ../testPostCell.swift; sourceTree = "<group>"; };
+		845B62811DCF89430015969D /* ChatHook8-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ChatHook8-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
+		845B62821DCF89430015969D /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Comment.swift; path = ../Comment.swift; sourceTree = "<group>"; };
+		845B62831DCF89430015969D /* CommentPostView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentPostView.swift; path = ../CommentPostView.swift; sourceTree = "<group>"; };
+		845B62841DCF89430015969D /* CommentViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentViewCell.swift; path = ../CommentViewCell.swift; sourceTree = "<group>"; };
+		845B62851DCF89430015969D /* CurrentUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CurrentUser.swift; path = ../CurrentUser.swift; sourceTree = "<group>"; };
+		845B62861DCF89430015969D /* GetLocation1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GetLocation1.swift; path = ../GetLocation1.swift; sourceTree = "<group>"; };
+		845B62871DCF89430015969D /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GradientView.swift; path = ../GradientView.swift; sourceTree = "<group>"; };
+		845B62881DCF89430015969D /* IntroVCLayouts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IntroVCLayouts.swift; path = ../IntroVCLayouts.swift; sourceTree = "<group>"; };
+		845B62891DCF89430015969D /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Message.swift; path = ../Message.swift; sourceTree = "<group>"; };
+		845B628A1DCF89430015969D /* PlayButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayButton.swift; path = ../PlayButton.swift; sourceTree = "<group>"; };
+		845B628B1DCF89430015969D /* PostsVCLayouts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostsVCLayouts.swift; path = ../PostsVCLayouts.swift; sourceTree = "<group>"; };
+		845B628C1DCF89430015969D /* PublicRoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PublicRoom.swift; path = ../PublicRoom.swift; sourceTree = "<group>"; };
+		845B628D1DCF89430015969D /* PublicRoomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PublicRoomCell.swift; path = ../PublicRoomCell.swift; sourceTree = "<group>"; };
+		845B628E1DCF89430015969D /* TestPostCellLayouts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestPostCellLayouts.swift; path = ../TestPostCellLayouts.swift; sourceTree = "<group>"; };
+		845B628F1DCF89430015969D /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = ../User.swift; sourceTree = "<group>"; };
+		845B62901DCF89430015969D /* UserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserCell.swift; path = ../UserCell.swift; sourceTree = "<group>"; };
+		845B62911DCF89430015969D /* UserPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserPost.swift; path = ../UserPost.swift; sourceTree = "<group>"; };
+		845B62921DCF89430015969D /* GroupedUsers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GroupedUsers.swift; path = ../GroupedUsers.swift; sourceTree = "<group>"; };
+		845B62931DCF89430015969D /* introVideo.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = introVideo.mov; sourceTree = "<group>"; };
+		845B62941DCF89430015969D /* MaterialButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MaterialButton.swift; path = ../MaterialButton.swift; sourceTree = "<group>"; };
+		845B62951DCF89430015969D /* MaterialImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MaterialImageView.swift; path = ../MaterialImageView.swift; sourceTree = "<group>"; };
+		845B62961DCF89430015969D /* MaterialTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MaterialTextField.swift; path = ../MaterialTextField.swift; sourceTree = "<group>"; };
+		845B62971DCF89430015969D /* MaterialView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MaterialView.swift; path = ../MaterialView.swift; sourceTree = "<group>"; };
+		845B62981DCF89430015969D /* TipInCellAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TipInCellAnimator.swift; path = ../TipInCellAnimator.swift; sourceTree = "<group>"; };
+		845B62991DCF89430015969D /* UserLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserLocation.swift; path = ../UserLocation.swift; sourceTree = "<group>"; };
 		84AE808B1DCF85C000C162D0 /* ChatHook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatHook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84AE808E1DCF85C000C162D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84AE80901DCF85C000C162D0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +117,7 @@
 		84AE80951DCF85C000C162D0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84AE80981DCF85C000C162D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		84AE809A1DCF85C000C162D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84AE80A01DCF85F400C162D0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +125,111 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				245921E7B8E177675212A4C9 /* Pods_ChatHook.framework in Frameworks */,
+				845B626D1DCF88C50015969D /* FBSDKCoreKit.framework in Frameworks */,
+				845B626E1DCF88C50015969D /* FBSDKLoginKit.framework in Frameworks */,
+				845B626C1DCF88C50015969D /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6DF6744B1DE071070E5CA3E7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2208C208D421BD0B185B6F39 /* Pods_ChatHook.framework */,
+				845B62691DCF88C50015969D /* Bolts.framework */,
+				845B626A1DCF88C50015969D /* FBSDKCoreKit.framework */,
+				845B626B1DCF88C50015969D /* FBSDKLoginKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		845B62C31DCF895B0015969D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				845B62701DCF89430015969D /* ChatViewController.swift */,
+				845B62711DCF89430015969D /* CommentViewController.swift */,
+				845B62781DCF89430015969D /* IntroViewController.swift */,
+				845B62791DCF89430015969D /* MainTabBar.swift */,
+				845B627A1DCF89430015969D /* MessagesController.swift */,
+				845B627B1DCF89430015969D /* NewMessagesController.swift */,
+				845B627C1DCF89430015969D /* PostsVC.swift */,
+				845B627E1DCF89430015969D /* ProfileViewController.swift */,
+				845B627F1DCF89430015969D /* RoomsViewController.swift */,
+				845B62861DCF89430015969D /* GetLocation1.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		845B62C41DCF89630015969D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				845B62751DCF89430015969D /* GalleryCollectionCell.swift */,
+				845B62801DCF89430015969D /* testPostCell.swift */,
+				845B62831DCF89430015969D /* CommentPostView.swift */,
+				845B62841DCF89430015969D /* CommentViewCell.swift */,
+				845B62871DCF89430015969D /* GradientView.swift */,
+				845B628A1DCF89430015969D /* PlayButton.swift */,
+				845B628D1DCF89430015969D /* PublicRoomCell.swift */,
+				845B62901DCF89430015969D /* UserCell.swift */,
+				845B62941DCF89430015969D /* MaterialButton.swift */,
+				845B62951DCF89430015969D /* MaterialImageView.swift */,
+				845B62961DCF89430015969D /* MaterialTextField.swift */,
+				845B62971DCF89430015969D /* MaterialView.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		845B62C51DCF896A0015969D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				845B62761DCF89430015969D /* GalleryImage.swift */,
+				845B62821DCF89430015969D /* Comment.swift */,
+				845B62851DCF89430015969D /* CurrentUser.swift */,
+				845B62891DCF89430015969D /* Message.swift */,
+				845B628C1DCF89430015969D /* PublicRoom.swift */,
+				845B628F1DCF89430015969D /* User.swift */,
+				845B62911DCF89430015969D /* UserPost.swift */,
+				845B62921DCF89430015969D /* GroupedUsers.swift */,
+				845B62991DCF89430015969D /* UserLocation.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		845B62C61DCF89700015969D /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				845B62771DCF89430015969D /* ImageExtensions.swift */,
+				845B62811DCF89430015969D /* ChatHook8-Bridging-Header.h */,
+				845B62741DCF89430015969D /* Extensions.swift */,
+				845B62731DCF89430015969D /* DataService.swift */,
+				845B62721DCF89430015969D /* Constants.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
+		845B62C71DCF89770015969D /* Layouts */ = {
+			isa = PBXGroup;
+			children = (
+				845B627D1DCF89430015969D /* ProfileVCLayouts.swift */,
+				845B62881DCF89430015969D /* IntroVCLayouts.swift */,
+				845B628B1DCF89430015969D /* PostsVCLayouts.swift */,
+				845B628E1DCF89430015969D /* TestPostCellLayouts.swift */,
+				845B62981DCF89430015969D /* TipInCellAnimator.swift */,
+			);
+			name = Layouts;
+			sourceTree = "<group>";
+		};
 		84AE80821DCF85C000C162D0 = {
 			isa = PBXGroup;
 			children = (
+				845B62931DCF89430015969D /* introVideo.mov */,
 				84AE808D1DCF85C000C162D0 /* ChatHook */,
 				84AE808C1DCF85C000C162D0 /* Products */,
+				DD9A835BF9BF7457BAF93446 /* Pods */,
+				6DF6744B1DE071070E5CA3E7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,14 +244,30 @@
 		84AE808D1DCF85C000C162D0 /* ChatHook */ = {
 			isa = PBXGroup;
 			children = (
+				845B62C71DCF89770015969D /* Layouts */,
+				845B62C61DCF89700015969D /* Services */,
+				845B62C51DCF896A0015969D /* Models */,
+				845B62C41DCF89630015969D /* Views */,
+				845B62C31DCF895B0015969D /* Controllers */,
+				845B626F1DCF88F30015969D /* ChatHook.entitlements */,
 				84AE808E1DCF85C000C162D0 /* AppDelegate.swift */,
 				84AE80901DCF85C000C162D0 /* ViewController.swift */,
 				84AE80921DCF85C000C162D0 /* Main.storyboard */,
 				84AE80951DCF85C000C162D0 /* Assets.xcassets */,
 				84AE80971DCF85C000C162D0 /* LaunchScreen.storyboard */,
 				84AE809A1DCF85C000C162D0 /* Info.plist */,
+				84AE80A01DCF85F400C162D0 /* GoogleService-Info.plist */,
 			);
 			path = ChatHook;
+			sourceTree = "<group>";
+		};
+		DD9A835BF9BF7457BAF93446 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0F76E295AECAB7281A2FF875 /* Pods-ChatHook.debug.xcconfig */,
+				449C62E4FCCF99145DD015B0 /* Pods-ChatHook.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +277,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 84AE809D1DCF85C000C162D0 /* Build configuration list for PBXNativeTarget "ChatHook" */;
 			buildPhases = (
+				6672BCCAF01AB685BA25C722 /* Check Pods Manifest.lock */,
 				84AE80871DCF85C000C162D0 /* Sources */,
 				84AE80881DCF85C000C162D0 /* Frameworks */,
 				84AE80891DCF85C000C162D0 /* Resources */,
+				618D205DA047C10929F42D7F /* Embed Pods Frameworks */,
+				33FB6EECBEA063C5B9A1C50D /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -98,6 +307,14 @@
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = L3Q2WJ3QZL;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -125,20 +342,110 @@
 			buildActionMask = 2147483647;
 			files = (
 				84AE80991DCF85C000C162D0 /* LaunchScreen.storyboard in Resources */,
+				84AE80A11DCF85F400C162D0 /* GoogleService-Info.plist in Resources */,
 				84AE80961DCF85C000C162D0 /* Assets.xcassets in Resources */,
+				845B62BC1DCF89430015969D /* introVideo.mov in Resources */,
 				84AE80941DCF85C000C162D0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		33FB6EECBEA063C5B9A1C50D /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChatHook/Pods-ChatHook-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		618D205DA047C10929F42D7F /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChatHook/Pods-ChatHook-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6672BCCAF01AB685BA25C722 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		84AE80871DCF85C000C162D0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				845B62A31DCF89430015969D /* MainTabBar.swift in Sources */,
+				845B62B31DCF89430015969D /* PlayButton.swift in Sources */,
+				845B629C1DCF89430015969D /* Constants.swift in Sources */,
+				845B62AE1DCF89430015969D /* CurrentUser.swift in Sources */,
+				845B62B91DCF89430015969D /* UserCell.swift in Sources */,
+				845B62BB1DCF89430015969D /* GroupedUsers.swift in Sources */,
+				845B62A51DCF89430015969D /* NewMessagesController.swift in Sources */,
+				845B62C01DCF89430015969D /* MaterialView.swift in Sources */,
+				845B629B1DCF89430015969D /* CommentViewController.swift in Sources */,
+				845B62AA1DCF89430015969D /* testPostCell.swift in Sources */,
+				845B62A41DCF89430015969D /* MessagesController.swift in Sources */,
+				845B62C11DCF89430015969D /* TipInCellAnimator.swift in Sources */,
+				845B629F1DCF89430015969D /* GalleryCollectionCell.swift in Sources */,
 				84AE80911DCF85C000C162D0 /* ViewController.swift in Sources */,
+				845B62A81DCF89430015969D /* ProfileViewController.swift in Sources */,
+				845B62BD1DCF89430015969D /* MaterialButton.swift in Sources */,
+				845B62B71DCF89430015969D /* TestPostCellLayouts.swift in Sources */,
+				845B629D1DCF89430015969D /* DataService.swift in Sources */,
+				845B62A61DCF89430015969D /* PostsVC.swift in Sources */,
+				845B62A11DCF89430015969D /* ImageExtensions.swift in Sources */,
+				845B62AD1DCF89430015969D /* CommentViewCell.swift in Sources */,
+				845B62A01DCF89430015969D /* GalleryImage.swift in Sources */,
+				845B62B61DCF89430015969D /* PublicRoomCell.swift in Sources */,
+				845B629A1DCF89430015969D /* ChatViewController.swift in Sources */,
+				845B62B51DCF89430015969D /* PublicRoom.swift in Sources */,
+				845B62BE1DCF89430015969D /* MaterialImageView.swift in Sources */,
+				845B62A91DCF89430015969D /* RoomsViewController.swift in Sources */,
+				845B62B41DCF89430015969D /* PostsVCLayouts.swift in Sources */,
+				845B62AB1DCF89430015969D /* Comment.swift in Sources */,
+				845B62AC1DCF89430015969D /* CommentPostView.swift in Sources */,
+				845B62A71DCF89430015969D /* ProfileVCLayouts.swift in Sources */,
+				845B62A21DCF89430015969D /* IntroViewController.swift in Sources */,
+				845B62B21DCF89430015969D /* Message.swift in Sources */,
+				845B62C21DCF89430015969D /* UserLocation.swift in Sources */,
 				84AE808F1DCF85C000C162D0 /* AppDelegate.swift in Sources */,
+				845B62B01DCF89430015969D /* GradientView.swift in Sources */,
+				845B62B11DCF89430015969D /* IntroVCLayouts.swift in Sources */,
+				845B629E1DCF89430015969D /* Extensions.swift in Sources */,
+				845B62AF1DCF89430015969D /* GetLocation1.swift in Sources */,
+				845B62BF1DCF89430015969D /* MaterialTextField.swift in Sources */,
+				845B62B81DCF89430015969D /* User.swift in Sources */,
+				845B62BA1DCF89430015969D /* UserPost.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,9 +564,15 @@
 		};
 		84AE809E1DCF85C000C162D0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0F76E295AECAB7281A2FF875 /* Pods-ChatHook.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ChatHook/ChatHook.entitlements;
 				DEVELOPMENT_TEAM = L3Q2WJ3QZL;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = ChatHook/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.splashscene.ChatHook;
@@ -270,9 +583,15 @@
 		};
 		84AE809F1DCF85C000C162D0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 449C62E4FCCF99145DD015B0 /* Pods-ChatHook.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ChatHook/ChatHook.entitlements;
 				DEVELOPMENT_TEAM = L3Q2WJ3QZL;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = ChatHook/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.splashscene.ChatHook;
@@ -300,6 +619,7 @@
 				84AE809F1DCF85C000C162D0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
