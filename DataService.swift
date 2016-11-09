@@ -6,16 +6,15 @@
 //  Copyright © 2016 splashscene. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import Firebase
 import FirebaseStorage
 import AVFoundation
 
-let URL_BASE = FIRDatabase.database().reference()
-let STORAGE_BASE = FIRStorage.storage().reference()
 
 class DataService {
     static let ds = DataService()
+    let introViewController = IntroViewController()
     
     private var _REF_BASE = URL_BASE
     
@@ -36,8 +35,6 @@ class DataService {
     
     let timestamp: Int = Int(NSDate().timeIntervalSince1970)
     
-    
-    
     var REF_BASE: FIRDatabaseReference{ return _REF_BASE }
     
     var REF_USERS: FIRDatabaseReference{ return _REF_USERS }
@@ -56,7 +53,9 @@ class DataService {
     var REF_GALLERYIMAGES: FIRDatabaseReference { return _REF_GALLERYIMAGES }
     
     var REF_USER_CURRENT: FIRDatabaseReference{
-        let uid = UserDefaults.standard.value(forKey: KEY_UID) as! String
+        print("Inside REF_USER_CURRENT")
+        let uid = "abcdefghijklmnop"
+        //let uid = UserDefaults.standard.value(forKey: KEY_UID) as! String
         let user = URL_BASE.child("users").child(uid)
         return user
     }
@@ -144,8 +143,72 @@ class DataService {
             }
         }
     }//end method
- 
- 
+    
+    func authUserAndCreateUserEntry(email: String, password: String, username: String?, profilePic: UIImage?){
+        print("Inside AUTHUSER")
+        
+        FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: {(user, error) in
+            print("Inside User Signed In with Email")
+            
+            if error != nil{
+                print(error!)
+                if error!._code == STATUS_NO_INTERNET{
+                    self.introViewController.showErrorAlert(title: "No Internet Connection", msg: "You currently have no internet connection. Please try again later.")
+                }
+                
+                if error!._code == STATUS_ACCOUNT_NONEXIST{
+                    
+                    FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user, error) in
+                        
+                        if error != nil{
+                            error!._code == STATUS_ACCOUNT_WEAKPASSWORD ?
+                                self.introViewController.showErrorAlert(title: "Weak Password", msg: "The password must be more than 5 characters.") :
+                                self.introViewController.showErrorAlert(title: "Could not create account", msg: "Problem creating account. Try something else")
+                        }else{
+                            UserDefaults.standard.setValue(user!.uid, forKey: KEY_UID)
+                            UserDefaults.standard.setValue(email, forKey: USER_EMAIL)
+                            
+                            if let userName = username, let profPic = profilePic{
+                                let values = ["provider": "email", "Email": email, "UserName": userName]
+                                
+                                DataService.ds.putInFirebaseStorage(whichFolder: PROFILE_IMAGES, withOptImage: profPic, withOptVideoNSURL: nil, withOptUser: nil, withOptText: nil, withOptRoom: nil, withOptCityAndState: nil, withOptDict: values)
+                            }
+                        }
+                    })
+                } else if error!._code == STATUS_ACCOUNT_WRONGPASSWORD{
+                    self.introViewController.showErrorAlert(title: "Incorrect Password", msg: "The password that you entered does not match the one we have for your email address")
+                    return
+                } else if error!._code == STATUS_ACCOUNT_BADEMAIL{
+                    self.introViewController.showErrorAlert(title: "Email Format", msg: "Your email address is not formatted correctly. Please try again")
+                    return
+                }
+                
+            } else {
+                print("Inside AuthUser and HANDLING RETURNING USERS")
+                //set only to allow different signins
+                UserDefaults.standard.setValue(user!.uid, forKey: KEY_UID)
+                self.introViewController.handleReturningUser()
+            }
+        })
+    }
+    
+    func createFirebaseUserEntry(values:[String: String], profileImageUrl: String){
+        print("I am inside createFireBase user")
+        let userID = UserDefaults.standard.value(forKey: KEY_UID) as! String
+        let newUser = URL_BASE.child("users").child(userID)
+        
+        for (key, value) in values{
+            newUser.child(key).setValue(value)
+        }
+        
+        newUser.child("ProfileImage").setValue(profileImageUrl)
+        if let userName = values["UserName"]{
+            let firstLetter = String(userName.uppercased()[userName.startIndex])
+            let userNameRef = REF_USERS_NAMES.child(firstLetter)
+                userNameRef.updateChildValues([userName.lowercased(): 1])
+        }
+    }
+
     func createFirebaseGalleryEntry(galleryImageUrl: String, galleryVideoUrl: String?){
         let galleryRef = REF_GALLERYIMAGES.childByAutoId()
         let galleryItem: Dictionary<String, AnyObject>
@@ -266,19 +329,6 @@ class DataService {
                 let postID = itemRef.key
                 postRoomRef.updateChildValues([postID: 1])
             }
-        }
-    }
-    
-    func createFirebaseUserEntry(values:[String: String], profileImageUrl: String){
-        print("I am inside createFireBase user")
-        for (key, value) in values{
-            REF_USER_CURRENT.child(key).setValue(value)
-        }
-        REF_USER_CURRENT.child("ProfileImage").setValue(profileImageUrl)
-        if let userName = values["UserName"]{
-            let firstLetter = String(userName.uppercased()[userName.startIndex])
-            let userNameRef = REF_USERS_NAMES.child(firstLetter)
-                userNameRef.updateChildValues([userName.lowercased(): 1])
         }
     }
     

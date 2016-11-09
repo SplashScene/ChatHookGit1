@@ -27,6 +27,9 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
                 DataService.ds.putInFirebaseStorage(whichFolder: PROFILE_IMAGES, withOptImage: selectedImage, withOptVideoNSURL: nil, withOptUser: nil, withOptText: nil, withOptRoom: nil, withOptCityAndState: nil, withOptDict: nil)
                 self.profileImageView.image = selectedImage
             }else{
+                hudView = HudView.hudInView(view: self.view, animated: true)
+                hudView?.isHidden = false
+                hudView?.text = "Uploading..."
                 DataService.ds.putInFirebaseStorage(whichFolder: GALLERY_IMAGES, withOptImage: selectedImage, withOptVideoNSURL: nil, withOptUser: nil, withOptText: nil, withOptRoom: nil, withOptCityAndState: nil, withOptDict: nil)
             }
         }

@@ -52,6 +52,7 @@
 		845B62C01DCF89430015969D /* MaterialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B62971DCF89430015969D /* MaterialView.swift */; };
 		845B62C11DCF89430015969D /* TipInCellAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B62981DCF89430015969D /* TipInCellAnimator.swift */; };
 		845B62C21DCF89430015969D /* UserLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B62991DCF89430015969D /* UserLocation.swift */; };
+		849947631DD0DDBE008499ED /* HudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849947621DD0DDBE008499ED /* HudView.swift */; };
 		84AE808F1DCF85C000C162D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AE808E1DCF85C000C162D0 /* AppDelegate.swift */; };
 		84AE80911DCF85C000C162D0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AE80901DCF85C000C162D0 /* ViewController.swift */; };
 		84AE80941DCF85C000C162D0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84AE80921DCF85C000C162D0 /* Main.storyboard */; };
@@ -110,6 +111,7 @@
 		845B62971DCF89430015969D /* MaterialView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MaterialView.swift; path = ../MaterialView.swift; sourceTree = "<group>"; };
 		845B62981DCF89430015969D /* TipInCellAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TipInCellAnimator.swift; path = ../TipInCellAnimator.swift; sourceTree = "<group>"; };
 		845B62991DCF89430015969D /* UserLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserLocation.swift; path = ../UserLocation.swift; sourceTree = "<group>"; };
+		849947621DD0DDBE008499ED /* HudView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudView.swift; sourceTree = "<group>"; };
 		84AE808B1DCF85C000C162D0 /* ChatHook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatHook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84AE808E1DCF85C000C162D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84AE80901DCF85C000C162D0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 				845B62951DCF89430015969D /* MaterialImageView.swift */,
 				845B62961DCF89430015969D /* MaterialTextField.swift */,
 				845B62971DCF89430015969D /* MaterialView.swift */,
+				849947621DD0DDBE008499ED /* HudView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -434,6 +437,7 @@
 				845B62B41DCF89430015969D /* PostsVCLayouts.swift in Sources */,
 				845B62AB1DCF89430015969D /* Comment.swift in Sources */,
 				845B62AC1DCF89430015969D /* CommentPostView.swift in Sources */,
+				849947631DD0DDBE008499ED /* HudView.swift in Sources */,
 				845B62A71DCF89430015969D /* ProfileVCLayouts.swift in Sources */,
 				845B62A21DCF89430015969D /* IntroViewController.swift in Sources */,
 				845B62B21DCF89430015969D /* Message.swift in Sources */,

@@ -25,7 +25,7 @@ class GetLocation1: UIViewController {
     var userLatInt: Int!
     var userLngInt: Int!
     
-    let currentUserRef = DataService.ds.REF_USER_CURRENT
+    //let currentUserRef = DataService.ds.REF_USER_CURRENT
     var blockedUsers: [String] = []
     var locationArray:[CLLocation] = []
     var timer: Timer!
@@ -88,6 +88,7 @@ class GetLocation1: UIViewController {
     
         setupUI()
         handleLocationTimer()
+        print("The CURRENT USER IS: \(DataService.ds.REF_USER_CURRENT)")
         
         
     }
@@ -160,23 +161,25 @@ class GetLocation1: UIViewController {
             locationTimer.invalidate()
         }
         self.locationTimer = Timer.scheduledTimer(timeInterval: 180.0, target: self, selector: #selector(self.handleCheckLocation), userInfo: nil, repeats: true)
-
     }
 
     //MARK: - Observe Methods
     func fetchCurrentUser(userLocation: CLLocation){
         print("In fetchCurrentUser")
+        let uid = UserDefaults.standard.value(forKey: KEY_UID) as! String
+        let currUser = URL_BASE.child("users").child(uid)
         
-        currentUserRef.observeSingleEvent(of: .value, with: { (snapshot) in
-            print("The current user ref is: \(self.currentUserRef)")
+        currUser.observeSingleEvent(of: .value, with: { (snapshot) in
+            print("The current user ref is: \(currUser)")
             if let dictionary = snapshot.value as? [String: AnyObject]{
+                print("Inside Current User Dictionary")
                 CurrentUser._blockedUsersArray = []
                 CurrentUser._postKey = snapshot.key
                 CurrentUser._userName = dictionary["UserName"] as! String
                 CurrentUser._location = userLocation
                 CurrentUser._profileImageUrl = dictionary["ProfileImage"] as? String
                 
-                let blockedUsersRef = self.currentUserRef.child("blocked_users")
+                let blockedUsersRef = currUser.child("blocked_users")
                     blockedUsersRef.observe(.value, with: { (snapshot) in
                         if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot]{
                             for snap in snapshots{
@@ -210,7 +213,6 @@ class GetLocation1: UIViewController {
             self.handleOtherUsers(snapshot: snapshot)
             self.mapView.setCenter(CurrentUser._location.coordinate, animated: true)
         }, withCancel: nil)
-
     }
     
     //MARK: - Handlers

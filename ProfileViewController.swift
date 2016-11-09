@@ -28,6 +28,8 @@ class ProfileViewController: UIViewController {
     var startingView: UIView?
     var player: AVPlayer?
     var playerLayer: AVPlayerLayer?
+    var hudView:HudView?
+    
     
     //MARK: - Properties
     let backgroundImageView: UIImageView = {
@@ -319,6 +321,8 @@ class ProfileViewController: UIViewController {
         DispatchQueue.main.async{
             self.collectionView.reloadData()
         }
+        hudView?.isHidden = true
+        hudView?.removeFromSuperview()
     }
     
     func handleShowChatControllerForSelectedUser(){

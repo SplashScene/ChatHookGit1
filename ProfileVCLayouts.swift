@@ -66,6 +66,7 @@ extension ProfileViewController{
     }
     
     func setupBackgroundImageView(){
+        backgroundImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         backgroundImageView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         backgroundImageView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5).isActive = true
         backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true

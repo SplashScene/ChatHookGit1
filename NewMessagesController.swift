@@ -45,7 +45,7 @@ class NewMessagesController: UITableViewController {
         
         super.viewDidLoad()
         navigationItem.title = "People Near You"
-        
+        tableView.separatorStyle = .none
         tableView.register(UserCell.self, forCellReuseIdentifier: "cellID")
         blockedUsersArray = []
         messagesController = MessagesController()
@@ -58,7 +58,7 @@ class NewMessagesController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         print("Inside View Will Appear")
         super.viewWillAppear(animated)
-        handleReloadTable()
+        //handleReloadTable()
     }
     
     //MARK: - Observe Methods

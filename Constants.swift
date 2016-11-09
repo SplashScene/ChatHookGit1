@@ -8,6 +8,8 @@
 
 import Foundation
 import UIKit
+import Firebase
+import FirebaseStorage
 
 let FONT_AVENIR_LIGHT = "Avenir-Light"
 let FONT_AVENIR_MEDIUM = "Avenir-Medium"
@@ -92,6 +94,9 @@ let IMAGESHACK_API_KEY = "79DFGHIQadc4d7cdf7cc6bb81f0bc1cbac0b7237"
 //Imagga
 
 //Firebase Storage Constants
+let URL_BASE = FIRDatabase.database().reference()
+let STORAGE_BASE = FIRStorage.storage().reference()
+
 let GALLERY_IMAGES = "gallery_images"
 let MESSAGE_IMAGES = "message_images"
 let POST_IMAGES = "post_images"

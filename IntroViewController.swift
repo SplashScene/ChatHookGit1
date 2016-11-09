@@ -202,42 +202,30 @@ class IntroViewController: UIViewController {
         userNameTextField.delegate = self
         passwordTextField.delegate = self
         viewsArray = [chatHookLogo, facebookContainerView, eMailContainerView, loginContainerView, profileImageView, registerButton]
-        setupKeyboardObservers()
-        checkIfAlreadySignedUp()
-        self.setupView()
     }
     
-    func checkIfAlreadySignedUp(){
-        if UserDefaults.standard.value(forKey: USER_EMAIL) == nil && UserDefaults.standard.value(forKey: KEY_UID) == nil{
-            print("This is a brand new user")
-        }else if UserDefaults.standard.value(forKey: USER_EMAIL) != nil && UserDefaults.standard.value(forKey: KEY_UID) == nil{
-            print("This user has already signed up but has logged out")
-        }else{
-            print("This is a returning user that hasn't logged out")
-        }
-        
-    }
     
+    /*
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("Inside Intro View Will Appear - Outside if")
         if UserDefaults.standard.value(forKey: USER_EMAIL) != nil {
             print("INSIDE INTRO VIEW WILL APPEAR")
            
-            chatHookLogoViewBottomAnchor?.constant = -16
-            facebookContainerView.isHidden = true
-            eMailContainerView.isHidden = true
-            loginContainerView.isHidden = false
-            passwordTextField.text = ""
-            inputsContainerView.isHidden = false
-            registerButton.setTitle("Sign In", for: .normal)
+//            chatHookLogoViewBottomAnchor?.constant = -16
+//            facebookContainerView.isHidden = true
+//            eMailContainerView.isHidden = true
+//            loginContainerView.isHidden = false
+//            passwordTextField.text = ""
+//            inputsContainerView.isHidden = false
+//            registerButton.setTitle("Sign In", for: .normal)
  
         }else {
             self.setupView()
         }
     }
     
-    /*
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if UserDefaults.standard.value(forKey: KEY_UID) != nil{
@@ -246,6 +234,11 @@ class IntroViewController: UIViewController {
         }
     }
     */
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        checkIfAlreadySignedUp()
+    }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
@@ -257,10 +250,7 @@ class IntroViewController: UIViewController {
     }
     
     //MARK: - Setup Methods
-    func setupKeyboardObservers(){
-        NotificationCenter.default.addObserver(self, selector: #selector(IntroViewController.handleKeyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(IntroViewController.handleKeyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-    }
+
     
     func setupView(){
         print("INSIDE SETUP VIEW")
@@ -294,6 +284,19 @@ class IntroViewController: UIViewController {
         self.registerButton.isHidden = true
     }
     
+    func checkIfAlreadySignedUp(){
+        if UserDefaults.standard.value(forKey: USER_EMAIL) == nil && UserDefaults.standard.value(forKey: KEY_UID) == nil{
+            print("Inside This is a brand new user")
+            self.setupView()
+        }else if UserDefaults.standard.value(forKey: USER_EMAIL) != nil && UserDefaults.standard.value(forKey: KEY_UID) == nil{
+            print("Inside This user has already signed up but has logged out")
+        }else{
+            print("Inside This is a returning user")
+            self.setupView()
+            handleReturningUser()
+        }
+    }
+    
     //MARK: - Login Methods
     func fbButtonPressed(){
         let facebookLogin = FBSDKLoginManager()
@@ -322,15 +325,15 @@ class IntroViewController: UIViewController {
                                        let name = result1?["name"] as? String,
                                        let email = result1?["email"] as? String{
                                             
-                                            let userData = ["provider": credential.provider,
-                                                            "Email": email,
-                                                            "UserName": name,
-                                                            "ProfileImage": url]
-                                            
-                                            DataService.ds.createFirebaseUser(uid: user!.uid, user: userData as Dictionary<String, AnyObject> )
-                                            
-                                            UserDefaults.standard.setValue(user!.uid, forKey: KEY_UID)
-                                            self.handleReturningUser()
+                                        let userData = ["provider": credential.provider,
+                                                        "Email": email,
+                                                        "UserName": name,
+                                                        "ProfileImage": url]
+                                        
+                                        DataService.ds.createFirebaseUser(uid: user!.uid, user: userData as Dictionary<String, AnyObject> )
+                                        
+                                        UserDefaults.standard.setValue(user!.uid, forKey: KEY_UID)
+                                        self.handleReturningUser()
                                     }
                                 })
                             }//end else
@@ -355,7 +358,9 @@ class IntroViewController: UIViewController {
         
         guard let email = emailTextField.text,
               let password = passwordTextField.text,
-              let userName = userNameTextField.text else { showErrorAlert(title: "Email and Password Required", msg: "You must enter an email and password to login")
+              let userName = userNameTextField.text else
+            
+        { showErrorAlert(title: "Email and Password Required", msg: "You must enter an email and password to login")
             return
         }
         //let isNameAlreadyRegistered = checkAlreadyUserName(userName: userName)
@@ -381,45 +386,18 @@ class IntroViewController: UIViewController {
 
     func createAndSignInUser(email: String, password: String, username: String){
         print("Inside Create and Sign In User")
-        FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: {(user, error) in
-            print("Inside User Signed In with Email")
-            self.userEmail = email
-            self.userProvider = "email"
-            
-            if error != nil{
-                print(error!)
-                if error!._code == STATUS_NO_INTERNET{
-                    self.showErrorAlert(title: "No Internet Connection", msg: "You currently have no internet connection. Please try again later.")
-                }
-                
-                if error!._code == STATUS_ACCOUNT_NONEXIST{
-                    self.registerButton.setTitle("Registering...", for: .normal)
-                    FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user, error) in
-                        
-                        if error != nil{
-                            error!._code == STATUS_ACCOUNT_WEAKPASSWORD ?
-                                self.showErrorAlert(title: "Weak Password", msg: "The password must be more than 5 characters.") :
-                                self.showErrorAlert(title: "Could not create account", msg: "Problem creating account. Try something else")
-                        }else{
-                            UserDefaults.standard.setValue(user!.uid, forKey: KEY_UID)
-                            UserDefaults.standard.setValue(self.userEmail, forKey: USER_EMAIL)
-                            self.uploadPictureAndSetupCurrentUser(userName: username)
-                        }
-                    })
-                } else if error!._code == STATUS_ACCOUNT_WRONGPASSWORD{
-                    self.showErrorAlert(title: "Incorrect Password", msg: "The password that you entered does not match the one we have for your email address")
-                    return
-                } else if error!._code == STATUS_ACCOUNT_BADEMAIL{
-                    self.showErrorAlert(title: "Email Format", msg: "Your email address is not formatted correctly. Please try again")
-                    return
-                }
-
-            } else {
-                //set only to allow different signins
-                UserDefaults.standard.setValue(user!.uid, forKey: KEY_UID)
-                self.handleReturningUser()
-            }
-        })
+        registerButton.setTitle("Registering...", for: .normal)
+        DataService.ds.authUserAndCreateUserEntry(email: email, password: password, username: username, profilePic: self.profileImageView.image!)
+        
+//        self.profileImageView.isHidden = true
+//        self.loginContainerView.isHidden = true
+//        self.facebookContainerView.isHidden = false
+//        self.eMailContainerView.isHidden = false
+//        
+//        setupChatHookLogoView()
+//        setupFacebookContainerView()
+//        setupEmailContainerView()
+        handleReturningUser()
     }
     
     func attemptLoginAlreadyUser(){
@@ -429,76 +407,15 @@ class IntroViewController: UIViewController {
                 showErrorAlert(title: "Email and Password Required", msg: "You must enter an email and password to login")
                 return
         }
-        
-        FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (user, error) in
-            if error != nil{
-                print(error as Any)
-                if error!._code == STATUS_NO_INTERNET{
-                    self.showErrorAlert(title: "No Internet Connection", msg: "You currently have no internet connection. Please try again later.")
-                }
-                if error!._code == STATUS_ACCOUNT_WRONGPASSWORD{
-                    self.showErrorAlert(title: "Incorrect Password", msg: "The password that you entered does not match the one we have for your email address")
-                    return
-                }
-            }else{
-                UserDefaults.standard.setValue(user!.uid, forKey: KEY_UID)
-                self.handleReturningUser()
-            }
-        })
+        DataService.ds.authUserAndCreateUserEntry(email: email, password: password, username: nil, profilePic: nil)
     }//end method
     
     //MARK: - Handler Methods
     func handleReturningUser(){
+        print("Inside handle returning USER")
         let tabController = MainTabBar()
             tabController.introViewController = self
         present(tabController, animated: true, completion: nil)
-    }
-    
-    func uploadPictureAndSetupCurrentUser(userName: String){
-        print("Inside uploadPicture")
-        guard   let userName = userNameTextField.text, userName != "",
-                let uEmail = self.userEmail,
-                let uProvider = self.userProvider else {return}
-        
-        let values = ["provider": uProvider, "Email": uEmail, "UserName": userName]
-        
-        DataService.ds.putInFirebaseStorage(whichFolder: PROFILE_IMAGES, withOptImage: self.profileImageView.image!, withOptVideoNSURL: nil, withOptUser: nil, withOptText: nil, withOptRoom: nil, withOptCityAndState: nil, withOptDict: values)
-        
-        self.profileImageView.isHidden = true
-        self.loginContainerView.isHidden = true
-        self.facebookContainerView.isHidden = false
-        self.eMailContainerView.isHidden = false
-        
-        setupChatHookLogoView()
-        setupFacebookContainerView()
-        setupEmailContainerView()
-        handleReturningUser()
-
-     }
-    
-    func handleKeyboardWillShow(notification: Notification){
-            //        let userInfo:NSDictionary = notification.userInfo! as NSDictionary
-//        let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
-//        let keyboardRectangle = keyboardFrame.cgRectValue
-//        let keyboardHeight = keyboardRectangle.height
-//        let keyboardDuration = userInfo.value(forKey: UIKeyboardAnimationDurationUserInfoKey) as! Double
-//        
-//        loginContainerViewBottomAnchor?.constant = -keyboardHeight
-//        UIView.animate(withDuration: keyboardDuration){
-//            self.view.layoutIfNeeded()
-//        }
-//       
-//        print("The height of the keyboard is: \(keyboardHeight)")
-    }
-    
-    func handleKeyboardWillHide(notification: Notification){
-        //loginContainerViewBottomAnchor?.constant = 0
-        let userInfo:NSDictionary = notification.userInfo! as NSDictionary
-        let keyboardDuration = userInfo.value(forKey: UIKeyboardAnimationDurationUserInfoKey) as! Double
-        
-        UIView.animate(withDuration: keyboardDuration){
-            self.view.layoutIfNeeded()
-        }
     }
     
     func eMailButtonPressed(){

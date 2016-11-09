@@ -48,6 +48,7 @@ class RoomsViewController: UITableViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(PublicRoomCell.self, forCellReuseIdentifier: cellID)
+        tableView.separatorStyle = .none
         
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
