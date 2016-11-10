@@ -161,18 +161,19 @@ class GetLocation1: UIViewController {
             locationTimer.invalidate()
         }
         self.locationTimer = Timer.scheduledTimer(timeInterval: 180.0, target: self, selector: #selector(self.handleCheckLocation), userInfo: nil, repeats: true)
+
     }
 
     //MARK: - Observe Methods
     func fetchCurrentUser(userLocation: CLLocation){
         print("In fetchCurrentUser")
+        print("My Latitude is: \(userLocation.coordinate.latitude) and my Latitude is: \(userLocation.coordinate.longitude)")
         let uid = UserDefaults.standard.value(forKey: KEY_UID) as! String
         let currUser = URL_BASE.child("users").child(uid)
         
         currUser.observeSingleEvent(of: .value, with: { (snapshot) in
             print("The current user ref is: \(currUser)")
             if let dictionary = snapshot.value as? [String: AnyObject]{
-                print("Inside Current User Dictionary")
                 CurrentUser._blockedUsersArray = []
                 CurrentUser._postKey = snapshot.key
                 CurrentUser._userName = dictionary["UserName"] as! String
@@ -213,6 +214,7 @@ class GetLocation1: UIViewController {
             self.handleOtherUsers(snapshot: snapshot)
             self.mapView.setCenter(CurrentUser._location.coordinate, animated: true)
         }, withCancel: nil)
+
     }
     
     //MARK: - Handlers
@@ -349,7 +351,7 @@ class GetLocation1: UIViewController {
         
         let distanceInMeters = arrayLocation.distance(from: otherLocation.location)
         let distanceInMiles = (distanceInMeters / 1000) * 0.62137
-        
+        print("The distance in miles I am returning is: \(distanceInMiles)")
         return distanceInMiles
     }
     

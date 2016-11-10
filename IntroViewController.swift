@@ -251,7 +251,6 @@ class IntroViewController: UIViewController {
     
     //MARK: - Setup Methods
 
-    
     func setupView(){
         print("INSIDE SETUP VIEW")
         let path = NSURL(fileURLWithPath: Bundle.main.path(forResource: "introVideo", ofType: "mov")!)
@@ -273,27 +272,97 @@ class IntroViewController: UIViewController {
             self.videoView.addSubview(view)
         }
         
-        setupChatHookLogoView()
-        setupFacebookContainerView()
-        setupEmailContainerView()
-        setupLoginContainerViewNewUser()
-        setupProfileImageView()
+            setupChatHookLogoView()
+            setupFacebookContainerView()
+            setupEmailContainerView()
+            setupLoginContainerViewNewUser()
+            setupProfileImageView()
+        
     }//end func setupView
     
-    func hideViews(){
-        self.registerButton.isHidden = true
-    }
+    func setupReturningView(){
+        print("INSIDE RETURNING SETUP VIEW")
+        let returningUserEmail = UserDefaults.standard.value(forKey: USER_EMAIL) as! String
+        let path = NSURL(fileURLWithPath: Bundle.main.path(forResource: "introVideo", ofType: "mov")!)
+        let player = AVPlayer(url: path as URL)
+        
+        let newLayer = AVPlayerLayer(player: player)
+            newLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+            newLayer.masksToBounds = true
+            newLayer.frame = view.bounds
+        self.videoView.layer.addSublayer(newLayer)
+        
+        player.play()
+        
+        player.actionAtItemEnd = AVPlayerActionAtItemEnd.none
+        
+        NotificationCenter.default.addObserver(self, selector:#selector(IntroViewController.videoDidPlayToEnd), name: NSNotification.Name(rawValue: "AVPlayerItemDidPlayToEndTimeNotification"), object: player.currentItem)
+        
+        self.videoView.addSubview(chatHookLogo)
+        self.videoView.addSubview(loginContainerView)
+        chatHookLogo.alpha = 1.0
+        loginContainerView.alpha = 1.0
+        self.videoView.addSubview(registerButton)
+        registerButton.isHidden = false
+        
+        chatHookLogo.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        chatHookLogo.bottomAnchor.constraint(equalTo: loginContainerView.topAnchor, constant: -16).isActive = true
+        
+        loginContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        loginContainerViewCenterAnchor = loginContainerView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0)
+        loginContainerViewCenterAnchor?.isActive = true
+        loginContainerView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -24).isActive = true
+        loginContainerViewHeightAnchor = loginContainerView.heightAnchor.constraint(equalToConstant: 124)
+        loginContainerViewHeightAnchor?.isActive = true
+        
+        loginContainerView.addSubview(inputsContainerView)
+        
+        inputsContainerView.centerXAnchor.constraint(equalTo: loginContainerView.centerXAnchor).isActive = true
+        inputsContainerView.centerYAnchor.constraint(equalTo: loginContainerView.centerYAnchor).isActive = true
+        inputsContainerView.widthAnchor.constraint(equalTo: loginContainerView.widthAnchor, constant: -24).isActive = true
+        inputsContainerViewHeightAnchor = inputsContainerView.heightAnchor.constraint(equalToConstant: 100)
+        inputsContainerViewHeightAnchor?.isActive = true
+        
+        inputsContainerView.addSubview(emailTextField)
+        inputsContainerView.addSubview(emailSeparatorView)
+        inputsContainerView.addSubview(passwordTextField)
+        
+        emailTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor).isActive = true
+        emailTextField.topAnchor.constraint(equalTo: inputsContainerView.topAnchor).isActive = true
+        emailTextField.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
+        emailTextFieldViewHeightAnchor = emailTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: 1/2)
+        emailTextFieldViewHeightAnchor?.isActive = true
+        emailTextField.text = returningUserEmail
+        
+        emailSeparatorView.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor).isActive = true
+        emailSeparatorView.topAnchor.constraint(equalTo: emailTextField.bottomAnchor).isActive = true
+        emailSeparatorView.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
+        emailSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        
+        passwordTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor).isActive = true
+        passwordTextField.topAnchor.constraint(equalTo: emailSeparatorView.bottomAnchor).isActive = true
+        passwordTextField.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
+        passwordTextFieldViewHeightAnchor = passwordTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: 1/2)
+        passwordTextFieldViewHeightAnchor?.isActive = true
+
+        setupRegisterButton()
+    }//end func setupView
+
+    
+//    func hideViews(){
+//        self.registerButton.isHidden = true
+//    }
     
     func checkIfAlreadySignedUp(){
-        if UserDefaults.standard.value(forKey: USER_EMAIL) == nil && UserDefaults.standard.value(forKey: KEY_UID) == nil{
-            print("Inside This is a brand new user")
-            self.setupView()
-        }else if UserDefaults.standard.value(forKey: USER_EMAIL) != nil && UserDefaults.standard.value(forKey: KEY_UID) == nil{
-            print("Inside This user has already signed up but has logged out")
+        if UserDefaults.standard.value(forKey: USER_EMAIL) != nil {
+          self.setupReturningView()
         }else{
-            print("Inside This is a returning user")
             self.setupView()
-            handleReturningUser()
+        }
+        
+        if UserDefaults.standard.value(forKey: KEY_UID) != nil{
+           
+           handleReturningUser()
         }
     }
     
@@ -389,10 +458,10 @@ class IntroViewController: UIViewController {
         registerButton.setTitle("Registering...", for: .normal)
         DataService.ds.authUserAndCreateUserEntry(email: email, password: password, username: username, profilePic: self.profileImageView.image!)
         
-//        self.profileImageView.isHidden = true
-//        self.loginContainerView.isHidden = true
-//        self.facebookContainerView.isHidden = false
-//        self.eMailContainerView.isHidden = false
+        self.profileImageView.isHidden = true
+        self.loginContainerView.isHidden = true
+        self.facebookContainerView.isHidden = false
+        self.eMailContainerView.isHidden = true
 //        
 //        setupChatHookLogoView()
 //        setupFacebookContainerView()
