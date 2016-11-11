@@ -18,6 +18,9 @@ class GetLocation1: UIViewController {
     let regionRadius:CLLocationDistance = 5000
     var userLocation: CLLocation?
     var otherUsersLocations: [UserLocation] = []
+    var locationArray1: [UserLocation] = []
+    var locationArray2: [UserLocation] = []
+    var locationArray3: [UserLocation] = []
     
     var zoneDistanceCheck: [[UserLocation]] = []
     var userOnline: Bool = false
@@ -85,6 +88,7 @@ class GetLocation1: UIViewController {
         self.locationManager?.delegate = self
         self.locationManager?.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         checkAuthorizationStatus()
+        //zoneDistanceCheck = [locationArray1,locationArray2,locationArray3]
     
         setupUI()
         handleLocationTimer()
@@ -198,24 +202,6 @@ class GetLocation1: UIViewController {
         }, withCancel: nil)
     }
     
-    func observeOtherUsersLocations(){
-        zoneDistanceCheck = []
-        
-        print("In observeOtherUsersLocations")
-        print("The count of zone distance check is: \(zoneDistanceCheck.count)")
-        let otherUsersLocationsRef = DataService.ds.REF_USERSONLINE.child("\(userLatInt!)").child("\(userLngInt!)")
-            otherUsersLocationsRef.observe(.childAdded, with: { (snapshot) in
-                self.handleOtherUsers(snapshot: snapshot)
-
-            }, withCancel: nil)
-        
-        otherUsersLocationsRef.observe(.childRemoved, with: { (snapshot) in
-            print("Inside child REMOVED")
-            self.handleOtherUsers(snapshot: snapshot)
-            self.mapView.setCenter(CurrentUser._location.coordinate, animated: true)
-        }, withCancel: nil)
-
-    }
     
     //MARK: - Handlers
     
@@ -239,86 +225,123 @@ class GetLocation1: UIViewController {
                     let midPoint:Int = self.zoneDistanceCheck[i].count / 2
                     let centerLocation = self.zoneDistanceCheck[i][midPoint]
                     overlayColor = UIColor(r: 255, g: 255, b: 0)
-                    overlayAlpha = 0.3
+                    overlayAlpha = 0.15
                     self.addRadiusCircle(location: centerLocation.location)
                 }
                 if self.zoneDistanceCheck.count == 4 || zoneDistanceCheck.count == 5{
                     let midPoint:Int = self.zoneDistanceCheck[i].count / 2
                     let centerLocation = self.zoneDistanceCheck[i][midPoint]
                     overlayColor = UIColor(r: 255, g: 165, b: 0)
-                    overlayAlpha = 0.3
+                    overlayAlpha = 0.15
                     self.addRadiusCircle(location: centerLocation.location)
                 }
                 if self.zoneDistanceCheck[i].count > 5{
                     let midPoint:Int = self.zoneDistanceCheck[i].count / 2
                     let centerLocation = self.zoneDistanceCheck[i][midPoint]
                     overlayColor = UIColor(r: 255, g: 0, b: 0)
-                    overlayAlpha = 0.3
+                    overlayAlpha = 0.15
                     self.addRadiusCircle(location: centerLocation.location)
                 }
             }
     }
     
-    func handleOtherUsers(snapshot: FIRDataSnapshot){
-        self.otherUsersLocations = []
-        if let dictionary = snapshot.value as? [String: AnyObject]{
-            let otherUserId = snapshot.key
-            let otherUserLat = dictionary["userLatitude"] as! Double
-            let otherUserLong = dictionary["userLongitude"] as! Double
-            
-            let otherUsersRef = DataService.ds.REF_USERS.child(otherUserId)
-            otherUsersRef.observeSingleEvent(of: .value, with: { (snapshot) in
-                if let userDict = snapshot.value as? [String: AnyObject]{
-                    let otherUserName = userDict["UserName"] as! String
-                    let otherUserImageUrl = userDict["ProfileImage"] as! String
-                    
-                    let otherUserLocation = UserLocation(latitude: otherUserLat, longitude: otherUserLong, name: otherUserName, imageName: otherUserImageUrl)
-                    self.otherUsersLocations.append(otherUserLocation)
-                    
-                    if self.zoneDistanceCheck.count == 0{
-                        var newArray = [UserLocation]()
-                        newArray.append(otherUserLocation)
-                        self.zoneDistanceCheck.append(newArray)
-                        print("The count of zone distance check is: \(self.zoneDistanceCheck.count)")
-                    }
-                    else{
-                        let distance = self.calculateDistance(zoneLocation: self.zoneDistanceCheck[0].first!, otherLocation: otherUserLocation)
-                        if distance <= 0.5{
-                            self.zoneDistanceCheck[0].append(otherUserLocation)
-                            print("The count of zoneDistanceCheck[0] is: \(self.zoneDistanceCheck[0].count)")
-                        }else if self.zoneDistanceCheck.count > 1{
-                            
-                            for i in 1..<self.zoneDistanceCheck.count{
-                                let distance = self.calculateDistance(zoneLocation: self.zoneDistanceCheck[i].first!, otherLocation: otherUserLocation)
-                                if distance <= 0.5{
-                                    self.zoneDistanceCheck[i].append(otherUserLocation)
-                                    print("I just added a location to this array: \(i) and the count is: \(self.zoneDistanceCheck[i].count)")
-                                }else{
-                                    var newArray:[UserLocation] = []
-                                    newArray.append(otherUserLocation)
-                                    print("I just made a new array and the count is: \(newArray.count)")
-                                    self.zoneDistanceCheck.append(newArray)
-                                    print("The count of zoneDistanceCheck is: \(self.zoneDistanceCheck.count)")
-                                }
-                            }
-                            
-                        } else {
-                            var newArray:[UserLocation] = []
-                            newArray.append(otherUserLocation)
-                            print("I just made a new array and the count is: \(newArray.count)")
-                            self.zoneDistanceCheck.append(newArray)
-                            print("The count of zoneDistanceCheck is: \(self.zoneDistanceCheck.count)")
-                        }
-                    }
-                    
-                    self.attemptHandleOverlays()
-                    
-                }
+    func observeOtherUsersLocations(){
+        print("The count of ZoneDistanceArray is: \(zoneDistanceCheck.count)")
+        otherUsersLocations = []
+        zoneDistanceCheck = []
+        print("In observeOtherUsersLocations")
+        print("The count of zone distance check is: \(zoneDistanceCheck.count)")
+        let otherUsersLocationsRef = DataService.ds.REF_USERSONLINE.child("\(userLatInt!)").child("\(userLngInt!)")
+        otherUsersLocationsRef.observe(.childAdded, with: { (snapshot) in
+            if let dictionary = snapshot.value as? [String: AnyObject]{
+                let otherUserId = snapshot.key
+                let otherUserLat = dictionary["userLatitude"] as! Double
+                let otherUserLong = dictionary["userLongitude"] as! Double
                 
-                }, withCancel: nil)
-            
-        }
+                let otherUsersRef = DataService.ds.REF_USERS.child(otherUserId)
+                    otherUsersRef.observeSingleEvent(of: .value, with: { (snapshot) in
+                        if let userDict = snapshot.value as? [String: AnyObject]{
+                            let otherUserName = userDict["UserName"] as! String
+                            let otherUserImageUrl = userDict["ProfileImage"] as! String
+                            
+                            
+                            let otherUserLocation = UserLocation(latitude: otherUserLat, longitude: otherUserLong, name: otherUserName, imageName: otherUserImageUrl)
+                            
+                            self.otherUsersLocations.append(otherUserLocation)
+                            self.timer?.invalidate()
+                            self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.groupOtherUsers), userInfo: nil, repeats: false)
 
+                            
+                            print("The COUNT of otherUserLocations array is: \(self.otherUsersLocations.count)")
+                        }
+                    }, withCancel: nil)
+            }
+            
+            //self.groupOtherUsers()
+            //self.handleOtherUsers(snapshot: snapshot)
+            
+        }, withCancel: nil)
+        
+        otherUsersLocationsRef.observe(.childRemoved, with: { (snapshot) in
+            print("Inside child REMOVED")
+            self.groupOtherUsers()
+            //self.handleOtherUsers(snapshot: snapshot)
+            self.mapView.setCenter(CurrentUser._location.coordinate, animated: true)
+        }, withCancel: nil)
+        
+    }
+
+    func groupOtherUsers(){
+        print("The count of otherUserLocations is: \(otherUsersLocations.count)")
+        print("Inside groupOtherUsers")
+        zoneDistanceCheck = []
+        var firstsArray: [UserLocation] = []
+        
+        
+        for i in 0..<otherUsersLocations.count{
+            var matched: Bool = false
+            if i == 0{
+                firstsArray.append(otherUsersLocations[i])
+                print("I put \(otherUsersLocations[i].name) in the first array")
+                continue
+            }
+            
+            for t in 0..<firstsArray.count{
+                let calcDistance = calculateDistance(zoneLocation: firstsArray[t], otherLocation: otherUsersLocations[i])
+                if calcDistance <= 0.5{
+                    matched = true
+                    break
+                }
+            }
+            
+            if matched == true{
+                continue
+            }else{
+                firstsArray.append(otherUsersLocations[i])
+            }
+        }
+        
+        for first in firstsArray{
+            let newArray = [first]
+            zoneDistanceCheck.append(newArray)
+        }
+        
+        for i in 0..<otherUsersLocations.count{
+            for t in 0..<firstsArray.count{
+                if otherUsersLocations[i].name == firstsArray[t].name{ break }
+                
+                let calcDistance = calculateDistance(zoneLocation: firstsArray[t], otherLocation: otherUsersLocations[i])
+                if calcDistance <= 0.5 {
+                    zoneDistanceCheck[t].append(otherUsersLocations[i])
+                    break
+                }
+            }
+        }
+        for array in zoneDistanceCheck{
+            print("The count of the internal array is: \(array.count)")
+        }
+        
+        attemptHandleOverlays()
     }
     
     func handleAnnotations(){
@@ -341,22 +364,18 @@ class GetLocation1: UIViewController {
             print(logoutError)
         }
         dismiss(animated: true, completion: nil)
-        
     }
     
     func calculateDistance(zoneLocation: UserLocation, otherLocation: UserLocation) -> Double {
-        print("INSIDE CALCULATE DISTANCE")
         
         let arrayLocation = zoneLocation.location
-        
         let distanceInMeters = arrayLocation.distance(from: otherLocation.location)
         let distanceInMiles = (distanceInMeters / 1000) * 0.62137
-        print("The distance in miles I am returning is: \(distanceInMiles)")
+        
         return distanceInMiles
     }
     
     func checkDistanceForMe(storedLocation: CLLocation, currentLocation: CLLocation) -> Bool{
-        print("Inside check distance from me")
         let distanceInMeters = storedLocation.distance(from: currentLocation)
         let distanceInMiles = (distanceInMeters / 1000) * 0.62137
         return distanceInMiles >= 0.10 ? true : false

@@ -205,7 +205,7 @@ class IntroViewController: UIViewController {
     }
     
     
-    /*
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("Inside Intro View Will Appear - Outside if")
@@ -215,17 +215,21 @@ class IntroViewController: UIViewController {
 //            chatHookLogoViewBottomAnchor?.constant = -16
 //            facebookContainerView.isHidden = true
 //            eMailContainerView.isHidden = true
-//            loginContainerView.isHidden = false
+              loginContainerView.isHidden = false
+              loginContainerView.alpha = 1.0
+            
 //            passwordTextField.text = ""
 //            inputsContainerView.isHidden = false
 //            registerButton.setTitle("Sign In", for: .normal)
+            
+            self.registerButton.setTitle("Sign In...", for: .normal)
  
         }else {
             self.setupView()
         }
     }
     
-    
+    /*
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if UserDefaults.standard.value(forKey: KEY_UID) != nil{
@@ -244,6 +248,7 @@ class IntroViewController: UIViewController {
 
         NotificationCenter.default.removeObserver(self)
     }
+    
 
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return .lightContent
@@ -458,11 +463,15 @@ class IntroViewController: UIViewController {
         registerButton.setTitle("Registering...", for: .normal)
         DataService.ds.authUserAndCreateUserEntry(email: email, password: password, username: username, profilePic: self.profileImageView.image!)
         
-        self.profileImageView.isHidden = true
-        self.loginContainerView.isHidden = true
-        self.facebookContainerView.isHidden = false
-        self.eMailContainerView.isHidden = true
-//        
+        
+//        self.profileImageView.isHidden = true
+//        self.loginContainerView.isHidden = false
+//        loginContainerView.alpha = 1.0
+//        self.facebookContainerView.isHidden = true
+//        self.eMailContainerView.isHidden = true
+        
+        
+//
 //        setupChatHookLogoView()
 //        setupFacebookContainerView()
 //        setupEmailContainerView()
