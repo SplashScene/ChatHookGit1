@@ -10,11 +10,13 @@ import UIKit
 import Firebase
 import FirebaseStorage
 import AVFoundation
+import CoreLocation
 
 
 class DataService {
     static let ds = DataService()
     let introViewController = IntroViewController()
+    let getLocationViewController = GetLocation1()
     
     private var _REF_BASE = URL_BASE
     
@@ -62,6 +64,13 @@ class DataService {
     
     func createFirebaseUser(uid: String, user: Dictionary<String, AnyObject>){
         REF_USERS.child(uid).setValue(user)
+    }
+    
+    func putUserOnline(userLatInt: Int, userLngInt: Int, currentUserLocation: CLLocation){
+        let usersOnlineRef = REF_BASE.child("users_online").child("\(userLatInt)").child("\(userLngInt)").child(CurrentUser._postKey)
+        let userLocal = ["userLatitude":currentUserLocation.coordinate.latitude, "userLongitude": currentUserLocation.coordinate.longitude]
+        usersOnlineRef.setValue(userLocal)
+ 
     }
     
     func putInFirebaseStorage(whichFolder: String, withOptImage image: UIImage?, withOptVideoNSURL video: NSURL?, withOptUser user: User?, withOptText text: String?, withOptRoom room: PublicRoom?, withOptCityAndState cityAndState: String?, withOptDict introDict: [String: String]?){
@@ -207,6 +216,37 @@ class DataService {
             let userNameRef = REF_USERS_NAMES.child(firstLetter)
                 userNameRef.updateChildValues([userName.lowercased(): 1])
         }
+    }
+    
+    func setupCurrentUser(userLocation: CLLocation) {
+        print("Inside setupCurrentUser Dataservice")
+        let uid = UserDefaults.standard.value(forKey: KEY_UID) as! String
+        print("Inside setupCurrentUser Dataservice UID is: \(uid)")
+        let currUser = URL_BASE.child("users").child(uid)
+        
+        currUser.observeSingleEvent(of: .value, with: { (snapshot) in
+            print("The current user ref is: \(currUser)")
+            if let dictionary = snapshot.value as? [String: AnyObject]{
+                CurrentUser._blockedUsersArray = []
+                CurrentUser._postKey = snapshot.key
+                CurrentUser._userName = dictionary["UserName"] as! String
+                CurrentUser._location = userLocation
+                CurrentUser._profileImageUrl = dictionary["ProfileImage"] as? String
+                
+                let blockedUsersRef = currUser.child("blocked_users")
+                blockedUsersRef.observe(.value, with: { (snapshot) in
+                    if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot]{
+                        for snap in snapshots{
+                            let blockedUserID = snap.key
+                            CurrentUser._blockedUsersArray?.append(blockedUserID)
+                        }
+                    }
+                }, withCancel: nil)
+               self.getLocationViewController.userIsOnline()
+            }else{
+                print("I aint got no dictionary dickhead")
+            }
+        }, withCancel: nil)
     }
 
     func createFirebaseGalleryEntry(galleryImageUrl: String, galleryVideoUrl: String?){

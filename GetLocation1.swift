@@ -117,28 +117,6 @@ class GetLocation1: UIViewController {
             }//end switch
     }//end checkAuthorizationStatus
     
-    func setupUI(){
-        topView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        topView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        topView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        topView.heightAnchor.constraint(equalToConstant: 70).isActive = true
-        
-        topView.addSubview(onlineLabel)
-        topView.addSubview(logoutButton)
-        
-        onlineLabel.rightAnchor.constraint(equalTo: topView.rightAnchor, constant: -8).isActive = true
-        onlineLabel.centerYAnchor.constraint(equalTo: topView.centerYAnchor).isActive = true
-        
-        logoutButton.leftAnchor.constraint(equalTo: topView.leftAnchor, constant: 8).isActive = true
-        logoutButton.centerYAnchor.constraint(equalTo: topView.centerYAnchor).isActive = true
-        logoutButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
-        logoutButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        
-        mapView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        mapView.topAnchor.constraint(equalTo: topView.bottomAnchor).isActive = true
-        mapView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-    }
     
     func userIsOnline(){
         userOnline = true
@@ -150,9 +128,8 @@ class GetLocation1: UIViewController {
              userLatInt = Int(currentUserLocation.coordinate.latitude)
              userLngInt = Int(currentUserLocation.coordinate.longitude)
             
-            let usersOnlineRef = DataService.ds.REF_BASE.child("users_online").child("\(userLatInt!)").child("\(userLngInt!)").child(CurrentUser._postKey)
-            let userLocal = ["userLatitude":currentUserLocation.coordinate.latitude, "userLongitude": currentUserLocation.coordinate.longitude]
-            usersOnlineRef.setValue(userLocal)
+            DataService.ds.putUserOnline(userLatInt: userLatInt, userLngInt: userLngInt, currentUserLocation: currentUserLocation)
+            
             observeOtherUsersLocations()
         }
         
@@ -165,15 +142,19 @@ class GetLocation1: UIViewController {
             locationTimer.invalidate()
         }
         self.locationTimer = Timer.scheduledTimer(timeInterval: 180.0, target: self, selector: #selector(self.handleCheckLocation), userInfo: nil, repeats: true)
-
     }
 
     //MARK: - Observe Methods
     func fetchCurrentUser(userLocation: CLLocation){
         print("In fetchCurrentUser")
         print("My Latitude is: \(userLocation.coordinate.latitude) and my Latitude is: \(userLocation.coordinate.longitude)")
+        //DataService.ds.setupCurrentUser(userLocation: userLocation)
+        
         let uid = UserDefaults.standard.value(forKey: KEY_UID) as! String
         let currUser = URL_BASE.child("users").child(uid)
+        
+        print("The uid is: \(uid)")
+        print("The currentUser ref is: \(currUser)")
         
         currUser.observeSingleEvent(of: .value, with: { (snapshot) in
             print("The current user ref is: \(currUser)")
@@ -194,14 +175,12 @@ class GetLocation1: UIViewController {
                         }
                     },
                     withCancel: nil)
-                
                 self.userIsOnline()
             }else{
                 print("I aint got no dictionary dickhead")
             }
         }, withCancel: nil)
     }
-    
     
     //MARK: - Handlers
     
@@ -270,9 +249,6 @@ class GetLocation1: UIViewController {
                             self.otherUsersLocations.append(otherUserLocation)
                             self.timer?.invalidate()
                             self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.groupOtherUsers), userInfo: nil, repeats: false)
-
-                            
-                            print("The COUNT of otherUserLocations array is: \(self.otherUsersLocations.count)")
                         }
                     }, withCancel: nil)
             }
